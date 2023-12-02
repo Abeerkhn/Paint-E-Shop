@@ -14,6 +14,8 @@ import {
   realtedProductController,
   searchProductController,
   updateProductController,
+  searchByColorController,
+  availableColorsController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
@@ -66,6 +68,12 @@ router.get("/related-product/:pid/:cid", realtedProductController);
 
 //category wise product
 router.get("/product-category/:slug", productCategoryController);
+
+// Search products by color
+router.get("/search-by-color/:color", searchByColorController);
+
+// Get all available colors
+router.get("/available-colors", availableColorsController);
 
 //payments routes
 //token
