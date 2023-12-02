@@ -28,6 +28,12 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    tags: [
+      {
+        type: mongoose.ObjectId,
+        ref: "Tags",
+      },
+    ],
     
     photo: {
       data: Buffer,

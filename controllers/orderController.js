@@ -8,7 +8,7 @@ export const codPaymentController = async (req, res) => {
       // Calculate the total amount from the items in the cart
       let total = 0;
       cart.forEach((item) => {
-        total += item.price;
+        total += item.price; 
       });
   
       // Create a new order with COD status

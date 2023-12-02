@@ -7,7 +7,7 @@ const tagsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // You can add more fields to your tags schema as needed
+   
   },
   { timestamps: true }
 );
