@@ -2,6 +2,7 @@ import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
 import orderModel from "../models/orderModel.js";
 
+
 import fs from "fs";
 import slugify from "slugify";
 // import braintree from "braintree";
@@ -13,7 +14,7 @@ dotenv.config();
 export const createProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } =
-      req.fields;
+      req.body;
     const { photo } = req.files;
     //alidation
     switch (true) {

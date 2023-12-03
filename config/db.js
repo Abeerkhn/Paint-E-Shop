@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import colors from "colors";
-const connectDB = async () => {
+ const connectDB = async () => {
   try {
     // const conn = await mongoose.connect("process.env.MONGO_URL");
     const conn = await mongoose.connect("mongodb+srv://abeerkn213:je11dHFont7OOuTu@cluster0.jgdzdgb.mongodb.net");
