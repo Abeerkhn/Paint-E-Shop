@@ -2,19 +2,17 @@ import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
 import orderModel from "../models/orderModel.js";
 
-
 import fs from "fs";
 import slugify from "slugify";
 // import braintree from "braintree";
 import dotenv from "dotenv";
+import { findRelatedColors } from "../Utilities/colorUtils.js";
 
 dotenv.config();
 
-
 export const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity, shipping } =
-      req.body;
+    const { name, description, price, category, quantity, shipping } = req.body;
     const { photo } = req.files;
     //alidation
     switch (true) {
@@ -320,14 +318,15 @@ export const productCategoryController = async (req, res) => {
   }
 };
 
-
 // Get products on colour (related too)
 export const searchByColorController = async (req, res) => {
   try {
     const { color } = req.params;
 
     // Use the static method from the model to find products by color
-    const products = await productModel.findProductsByColor(color);
+    const products = await productModel.find({
+      $or: [{ color: color }, { color: { $in: findRelatedColors(color) } }],
+    });
 
     res.json({
       success: true,
@@ -343,7 +342,6 @@ export const searchByColorController = async (req, res) => {
     });
   }
 };
-
 
 // Get all colours
 export const availableColorsController = async (req, res) => {
