@@ -16,28 +16,43 @@ const Login = () => {
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("/api/v1/auth/login", {
-        email,
-        password,
+      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       });
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(data.message);
         setAuth({
           ...auth,
-          user: res.data.user,
-          token: res.data.token,
+          user: data.user,
+          token: data.token,
         });
-        localStorage.setItem("auth", JSON.stringify(res.data));
+        localStorage.setItem("auth", JSON.stringify(data));
         navigate(location.state || "/");
       } else {
-        toast.error(res.data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Fetch Error:", error);
       toast.error("Something went wrong");
     }
   };
+
   return (
     <Layout title="Register - Ecommer App">
       <div className="form-container " style={{ minHeight: "90vh" }}>
