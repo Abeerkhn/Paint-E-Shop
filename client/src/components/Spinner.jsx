@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 const Spinner = ({ path = "login" }) => {
+  console.log("Path", path)
   const [count, setCount] = useState(3);
   const navigate = useNavigate();
   const location = useLocation();
