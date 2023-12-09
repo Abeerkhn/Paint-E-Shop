@@ -47,12 +47,14 @@ const CartPage = () => {
 
   //get payment gateway token
   const getToken = async () => {
-    try {
-      const { data } = await axios.get("/api/v1/product/braintree/token");
-      setClientToken(data?.clientToken);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const { data } = await axios.get(
+    //     "http://localhost:8080/api/v1/product/braintree/token"
+    //   );
+    //   setClientToken(data?.clientToken);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   useEffect(() => {
     getToken();
@@ -60,29 +62,29 @@ const CartPage = () => {
 
   //handle payments
   const handlePayment = async () => {
-    try {
-      setLoading(true);
-      const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("/api/v1/product/braintree/payment", {
-        nonce,
-        cart,
-      });
-      setLoading(false);
-      localStorage.removeItem("cart");
-      setCart([]);
-      navigate("/dashboard/user/orders");
-      toast.success("Payment Completed Successfully ");
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   const { nonce } = await instance.requestPaymentMethod();
+    //   const { data } = await axios.post("/api/v1/product/braintree/payment", {
+    //     nonce,
+    //     cart,
+    //   });
+    //   setLoading(false);
+    //   localStorage.removeItem("cart");
+    //   setCart([]);
+    //   navigate("/dashboard/user/orders");
+    //   toast.success("Payment Completed Successfully ");
+    // } catch (error) {
+    //   console.log(error);
+    //   setLoading(false);
+    // }
   };
   return (
     <Layout>
-      <div className=" cart-page">
+      <div className=" cart-page ">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center bg-light p-2 mb-1">
+            {/* <h1 className="text-center bg-light p-2 mb-1">
               {!auth?.user
                 ? "Hello Guest"
                 : `Hello  ${auth?.token && auth?.user?.name}`}
@@ -93,7 +95,7 @@ const CartPage = () => {
                     }`
                   : " Your Cart Is Empty"}
               </p>
-            </h1>
+            </h1> */}
           </div>
         </div>
         <div className="container ">
@@ -131,7 +133,7 @@ const CartPage = () => {
               <p>Total | Checkout | Payment</p>
               <hr />
               <h4>Total : {totalPrice()} </h4>
-              {auth?.user?.address ? (
+              {/* {auth?.user?.address ? (
                 <>
                   <div className="mb-3">
                     <h4>Current Address</h4>
@@ -166,8 +168,8 @@ const CartPage = () => {
                     </button>
                   )}
                 </div>
-              )}
-              <div className="mt-2">
+              )} */}
+              {/* <div className="mt-2">
                 {!clientToken || !auth?.token || !cart?.length ? (
                   ""
                 ) : (
@@ -191,7 +193,7 @@ const CartPage = () => {
                     </button>
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

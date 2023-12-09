@@ -91,7 +91,7 @@ const Header = () => {
                   <li className="nav-item dropdown">
                     <NavLink
                       className="nav-link dropdown-toggle"
-                      href="#"
+                      href=""
                       role="button"
                       data-bs-toggle="dropdown"
                       style={{ border: "none" }}
