@@ -11,6 +11,7 @@ const Header = () => {
   const [auth, setAuth] = useAuth();
   const [cart] = useCart();
   const categories = useCategory();
+  console.log("Categories in Navbar", categories);
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -22,7 +23,9 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top " style={{
+        marginBottom:"100px"
+      }}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -37,7 +40,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand">
-              🛒 Ecommerce App
+              🛒 Paint App
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <SearchInput />
@@ -60,16 +63,17 @@ const Header = () => {
                       All Categories
                     </Link>
                   </li>
-                  {categories?.map((c) => (
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        to={`/category/${c.slug}`}
-                      >
-                        {c.name}
-                      </Link>
-                    </li>
-                  ))}
+                  {categories &&
+                    categories.map((c) => (
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          to={`/category/${c._id}`}
+                        >
+                          {c.name}
+                        </Link>
+                      </li>
+                    ))}
                 </ul>
               </li>
 

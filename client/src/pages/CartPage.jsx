@@ -16,7 +16,7 @@ const CartPage = () => {
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  console.log("Auth", auth);
   //total price
   const totalPrice = () => {
     try {
@@ -84,7 +84,7 @@ const CartPage = () => {
       <div className=" cart-page ">
         <div className="row">
           <div className="col-md-12">
-            {/* <h1 className="text-center bg-light p-2 mb-1">
+            <h1 className="text-center bg-light p-2 mb-1">
               {!auth?.user
                 ? "Hello Guest"
                 : `Hello  ${auth?.token && auth?.user?.name}`}
@@ -95,7 +95,7 @@ const CartPage = () => {
                     }`
                   : " Your Cart Is Empty"}
               </p>
-            </h1> */}
+            </h1>
           </div>
         </div>
         <div className="container ">
@@ -133,11 +133,13 @@ const CartPage = () => {
               <p>Total | Checkout | Payment</p>
               <hr />
               <h4>Total : {totalPrice()} </h4>
-              {/* {auth?.user?.address ? (
+              {auth?.user?.address ? (
                 <>
                   <div className="mb-3">
                     <h4>Current Address</h4>
-                    <h5>{auth?.user?.address}</h5>
+                    <h5>
+                      {auth?.user?.address.city}, {auth?.user?.address.state}
+                    </h5>
                     <button
                       className="btn btn-outline-warning"
                       onClick={() => navigate("/dashboard/user/profile")}
@@ -168,9 +170,9 @@ const CartPage = () => {
                     </button>
                   )}
                 </div>
-              )} */}
-              {/* <div className="mt-2">
-                {!clientToken || !auth?.token || !cart?.length ? (
+              )}
+              <div className="mt-2">
+                {!auth?.token || !cart?.length ? (
                   ""
                 ) : (
                   <>
@@ -193,7 +195,7 @@ const CartPage = () => {
                     </button>
                   </>
                 )}
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

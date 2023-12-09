@@ -10,36 +10,14 @@ export default function PrivateRoute() {
 
   useEffect(() => {
     const authCheck = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/auth/admin-auth",
-          {
-            headers: {
-              Authorization: `Bearer ${auth.token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.ok) {
-          setOk(true);
-        } else {
-          setOk(false);
-        }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-        // Handle the error appropriately, setOk(false) or any other logic
+      const res = await axios.get("/api/v1/auth/admin-auth");
+      if (res.data.ok) {
+        setOk(true);
+      } else {
+        setOk(false);
       }
     };
-
-    if (auth?.token) {
-      authCheck();
-    }
+    if (auth?.token) authCheck();
   }, [auth?.token]);
 
   return ok ? <Outlet /> : <Spinner path="" />;
