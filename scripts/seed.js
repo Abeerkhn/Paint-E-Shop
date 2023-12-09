@@ -8,9 +8,14 @@ import {  hashPassword } from "./../helpers/authHelper.js";
 
 import connectDB from "../config/db.js"; // Assuming this file contains your database connection logic
 
-
+console.log("im in seed.js");
 // Connect to the database
 connectDB();
+
+
+const generateSlug = (name) => {
+  return name.toLowerCase().replace(/\s+/g, '-');
+};
 
 // Seed data
 const seedData = async () => {
@@ -37,13 +42,13 @@ const seedData = async () => {
           }
       
     // Seed categories
+    
     const categories = await categoryModel.create([
-        { name: "Luxury coatings" },
-        { name: "Interior" },
-        { name: "Exterior" },
-        { name: "Wooden material" },
-        { name: "Surface preparation" },
-   
+      { name: "Luxury coatings", slug: generateSlug("Luxury coatings") },
+      { name: "Interior", slug: generateSlug("Interior") },
+      { name: "Exterior", slug: generateSlug("Exterior") },
+      { name: "Wooden material", slug: generateSlug("Wooden material") },
+      { name: "Surface preparation", slug: generateSlug("Surface preparation") },
     ]);
 
     // Seed tags

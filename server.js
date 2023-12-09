@@ -17,7 +17,7 @@ import cors from "cors";
 dotenv.config();
 
 //databse config
-
+console.log("im in server.js");
 connectDB();
 
 //rest object
