@@ -72,6 +72,7 @@ const seedData = async () => {
         tags: [tags[2]._id],
         color: "#3366FF",
         quantity: 123,
+        slug: generateSlug("Product 1"),
         // Add more product data as needed
       },
       {
@@ -82,6 +83,7 @@ const seedData = async () => {
         tags: [tags[2]._id],
         color: "#3366FF",
         quantity: 123,
+        slug: generateSlug("Product 2"),
       },
       {
         name: "Product 3",
@@ -91,6 +93,7 @@ const seedData = async () => {
         tags: [tags[3]._id],
         color: "#66FF33",
         quantity: 123,
+        slug: generateSlug("Product 3"),
       },
       {
         name: "Product 4",
@@ -100,6 +103,7 @@ const seedData = async () => {
         tags: [tags[4]._id],
         color: "#FF3366",
         quantity: 123,
+        slug: generateSlug("Product 4"),
       },
       {
         name: "Product 5",
@@ -109,6 +113,7 @@ const seedData = async () => {
         tags: [tags[5]._id],
         color: "#FF9933",
         quantity: 123,
+        slug: generateSlug("Product 5"),
       },
       {
         name: "Product 6",
@@ -118,6 +123,7 @@ const seedData = async () => {
         tags: [tags[0]._id, tags[1]._id, tags[2]._id],
         color: "#9933FF",
         quantity: 123,
+        slug: generateSlug("Product 6"),
       },
       {
         name: "Product 7",
@@ -127,6 +133,7 @@ const seedData = async () => {
         tags: [tags[3]._id, tags[4]._id],
         color: "#33FF99",
         quantity: 123,
+        slug: generateSlug("Product 7"),
       },
       // Add more products as needed
     ]);
