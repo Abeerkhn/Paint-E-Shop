@@ -59,26 +59,45 @@ const CartPage = () => {
   useEffect(() => {
     getToken();
   }, [auth?.token]);
+  function transformArray(originalArray) {
+    return originalArray.map((item) => ({
+      productId: item._id,
+      price: item.price,
+    }));
+  }
 
   //handle payments
   const handlePayment = async () => {
-    // try {
-    //   setLoading(true);
-    //   const { nonce } = await instance.requestPaymentMethod();
-    //   const { data } = await axios.post("/api/v1/product/braintree/payment", {
-    //     nonce,
-    //     cart,
-    //   });
-    //   setLoading(false);
-    //   localStorage.removeItem("cart");
-    //   setCart([]);
-    //   navigate("/dashboard/user/orders");
-    //   toast.success("Payment Completed Successfully ");
-    // } catch (error) {
-    //   console.log(error);
-    //   setLoading(false);
-    // }
+    try {
+      const actualCart = transformArray(cart);
+
+      setLoading(true);
+      const { data } = await axios.post(
+        "http://localhost:8080/api/v1/orders/cod-payment",
+        {
+          products: actualCart,
+        },
+        {
+          headers: {
+            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+          },
+        }
+      );
+
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/orders");
+      toast.success("Payment Completed Successfully ");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
+  console.log(
+    "token in handlePayment",
+    JSON.parse(localStorage.getItem("auth")).token
+  );
   return (
     <Layout>
       <div className=" cart-page ">
@@ -176,22 +195,12 @@ const CartPage = () => {
                   ""
                 ) : (
                   <>
-                    <DropIn
-                      options={{
-                        authorization: clientToken,
-                        paypal: {
-                          flow: "vault",
-                        },
-                      }}
-                      onInstance={(instance) => setInstance(instance)}
-                    />
-
                     <button
                       className="btn btn-primary"
                       onClick={handlePayment}
-                      disabled={loading || !instance || !auth?.user?.address}
+                      disabled={loading}
                     >
-                      {loading ? "Processing ...." : "Make Payment"}
+                      Order
                     </button>
                   </>
                 )}
