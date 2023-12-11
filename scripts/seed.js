@@ -73,6 +73,11 @@ const seedData = async () => {
         color: "#3366FF",
         quantity: 123,
         slug: generateSlug("Product 1"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ],
+        
         // Add more product data as needed
       },
       {
@@ -84,6 +89,11 @@ const seedData = async () => {
         color: "#3366FF",
         quantity: 123,
         slug: generateSlug("Product 2"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ]
+        // A
       },
       {
         name: "Product 3",
@@ -94,6 +104,11 @@ const seedData = async () => {
         color: "#66FF33",
         quantity: 123,
         slug: generateSlug("Product 3"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ]
+        // A
       },
       {
         name: "Product 4",
@@ -104,7 +119,11 @@ const seedData = async () => {
         color: "#FF3366",
         quantity: 123,
         slug: generateSlug("Product 4"),
-      },
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ]
+        },
       {
         name: "Product 5",
         description: "Description for Product 5",
@@ -114,6 +133,11 @@ const seedData = async () => {
         color: "#FF9933",
         quantity: 123,
         slug: generateSlug("Product 5"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ],
+        // A
       },
       {
         name: "Product 6",
@@ -124,6 +148,11 @@ const seedData = async () => {
         color: "#9933FF",
         quantity: 123,
         slug: generateSlug("Product 6"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ],
+        // A
       },
       {
         name: "Product 7",
@@ -134,7 +163,13 @@ const seedData = async () => {
         color: "#33FF99",
         quantity: 123,
         slug: generateSlug("Product 7"),
+        photos: [
+          "https://dummyurl1.com/product1.jpg",
+          "https://dummyurl2.com/product1.jpg",
+        ],       
+
       },
+
       // Add more products as needed
     ]);
 

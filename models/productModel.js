@@ -39,10 +39,12 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    photo: {
-      data: Buffer,
-      contentType: String,
-    },
+    photos: [
+      {
+        type: String, // Assuming these are URLs of images stored on Cloudinary
+      },
+    ],
+
     shipping: {
       type: Boolean,
     },

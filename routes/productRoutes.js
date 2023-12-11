@@ -16,6 +16,7 @@ import {
   updateProductController,
   searchByColorController,
   availableColorsController,
+  searchByTagsController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
@@ -27,15 +28,13 @@ router.post(
   "/create-product",
   requireSignIn,
   isAdmin,
-  formidable(),
-  createProductController
+createProductController
 );
 //routes
 router.put(
   "/update-product/:pid",
   requireSignIn,
   isAdmin,
-  formidable(),
   updateProductController
 );
 
@@ -74,6 +73,7 @@ router.get("/search-by-color/:color", searchByColorController);
 
 // Get all available colors
 router.get("/available-colors", availableColorsController);
+router.get("/search-by-tags/:tags", searchByTagsController);
 
 //payments routes
 //token
