@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { shiftHue, findRelatedColors } from '../Utilities/colorUtils.js'
-
+import { shiftHue, findRelatedColors } from "../Utilities/colorUtils.js";
 
 const productSchema = new mongoose.Schema(
   {
@@ -46,7 +45,6 @@ const productSchema = new mongoose.Schema(
     shipping: {
       type: Boolean,
     },
-    
   },
   { timestamps: true }
 );
@@ -58,10 +56,7 @@ productSchema.index({ color: 1 });
 productSchema.statics.findProductsByColor = async function (color) {
   const relatedColors = findRelatedColors(color);
   const products = await this.find({
-    $or: [
-      { color: color },
-      { color: { $in: relatedColors } },
-    ],
+    $or: [{ color: color }, { color: { $in: relatedColors } }],
   });
   return products;
 };

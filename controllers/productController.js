@@ -12,8 +12,9 @@ dotenv.config();
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity, shipping } = req.body;
-    console.log(name)
+    const { name, description, price, category, quantity, shipping } = req.fields;
+    console.log("Request",req.fields)
+    console.log("Request files",req.files)
     const { photo } = req.files;
     //alidation
     switch (true) {

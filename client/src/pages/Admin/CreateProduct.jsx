@@ -11,7 +11,7 @@ const CreateProduct = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [formValues, setFormValues] = useState({
-    Name: "",
+    name: "", // lowercase 'name' instead of 'Name'
     description: "",
     price: "",
     category: "",
@@ -19,6 +19,8 @@ const CreateProduct = () => {
     shipping: "",
     photo: null,
   });
+  
+  console.log("Form data product", formValues);
 
   //get all category
   const getAllCategory = async () => {
@@ -40,26 +42,34 @@ const CreateProduct = () => {
   }, []);
 
   //create product function
+
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
+  
+      // Append text fields
       for (let key in formValues) {
         if (key === "photo" && formValues[key]) {
+          // Append the photo file
           productData.append(key, formValues[key]);
         } else {
-          productData.append(key, formValues[key]);
+          productData.append(key.toLowerCase(), formValues[key]);
         }
       }
-      const { data } = axios.post(
+  
+      const token = JSON.parse(localStorage.getItem("auth")).token;
+      const { data } = await axios.post(
         "http://localhost:8080/api/v1/product/create-product",
-        productData,{
+        productData,
+        {
           headers: {
-            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log("Form data product", productData);
+  
       if (data?.success) {
         toast.error(data?.message);
       } else {
@@ -71,6 +81,39 @@ const CreateProduct = () => {
       toast.error("Something went wrong");
     }
   };
+  
+  
+  
+  // const handleCreate = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const productData = new FormData();
+  //     for (let key in formValues) {
+  //       if (key === "photo" && formValues[key]) {
+  //         productData.append(key, formValues[key]);
+  //       } else {
+  //         productData.append(key, formValues[key]);
+  //       }
+  //     }
+  //     const { data } = axios.post(
+  //       "http://localhost:8080/api/v1/product/create-product",
+  //       productData,{
+  //         headers: {
+  //           Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+  //         },
+  //       }
+  //     );
+  //     if (data?.success) {
+  //       toast.error(data?.message);
+  //     } else {
+  //       toast.success("Product Created Successfully");
+  //       navigate("/dashboard/admin/products");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong");
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -148,7 +191,7 @@ const CreateProduct = () => {
                 <input
                   type="text"
                   value={formValues.name}
-                  name="Name"
+                  name="name"
                   placeholder="Write a name"
                   className="form-control"
                   onChange={handleInputChange}
