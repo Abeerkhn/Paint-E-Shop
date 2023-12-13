@@ -4,19 +4,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../styles/CategoryProductStyles.css";
 import axios from "axios";
 const CategoryProduct = () => {
-  const {_id} = useParams();
+  const { slug } = useParams();
 
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    if (_id) getPrductsByCat();
-  }, [_id]);
+    if (slug) getPrductsByCat();
+  }, [slug]);
   const getPrductsByCat = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/product-category/${_id}`
+        `http://localhost:8080/api/v1/product/product-category/${slug}`
       );
       setProducts(data?.products);
       setCategory(data?.category);

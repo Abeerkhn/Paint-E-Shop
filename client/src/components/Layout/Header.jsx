@@ -11,7 +11,6 @@ const Header = () => {
   const [auth, setAuth] = useAuth();
   const [cart] = useCart();
   const categories = useCategory();
-  console.log("Categories in Navbar", categories);
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -68,7 +67,7 @@ const Header = () => {
                       <li>
                         <Link
                           className="dropdown-item"
-                          to={`/category/${c._id}`}
+                          to={`/category/${c.slug}`}
                         >
                           {c.name}
                         </Link>

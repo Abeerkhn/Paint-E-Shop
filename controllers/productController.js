@@ -13,8 +13,6 @@ dotenv.config();
 
 export const createProductController = async (req, res) => {
   try {
-    console.log("Request Body:", req.body);
-
     const {
       name,
       description,
@@ -27,26 +25,25 @@ export const createProductController = async (req, res) => {
       photos,
     } = req.body;
 
-    console.log("Product Details:", name, description, price, category, quantity, shipping, tags, color, photos);
-
     // Validation
     switch (true) {
       case !name:
-        return res.status(500).send({ error: "Name is Required" });
+        return res.status(400).send({ error: "Name is Required" });
       case !description:
-        return res.status(500).send({ error: "Description is Required" });
+        return res.status(400).send({ error: "Description is Required" });
       case !price:
-        return res.status(500).send({ error: "Price is Required" });
+        return res.status(400).send({ error: "Price is Required" });
       case !category:
-        return res.status(500).send({ error: "Category is Required" });
+        return res.status(400).send({ error: "Category is Required" });
       case !quantity:
-        return res.status(500).send({ error: "Quantity is Required" });
+        return res.status(400).send({ error: "Quantity is Required" });
       case !photos || photos.length === 0:
         return res
-          .status(500)
-          .send({ error: "At least one photo is required" });
+          .status(400)
+          .send({ error: "At least one photo URL is required" });
     }
 
+    // Create product instance
     const newProduct = new productModel({
       name,
       description,
@@ -60,9 +57,7 @@ export const createProductController = async (req, res) => {
       slug: slugify(name),
     });
 
-    console.log("New Product:", newProduct);
-
-   
+    // Save the product to the database
     await newProduct.save();
 
     res.status(201).send({
@@ -71,15 +66,14 @@ export const createProductController = async (req, res) => {
       product: newProduct,
     });
   } catch (error) {
-    console.error("Error in createProductController:", error);
-    console.log(error);
+    console.error(error);
     res.status(500).send({
       success: false,
       error,
       message: "Error in creating product",
     });
   }
-};
+}
 
 //get all products
 export const getProductController = async (req, res) => {
@@ -166,21 +160,16 @@ export const deleteProductController = async (req, res) => {
 //upate producta
 export const updateProductController = async (req, res) => {
   try {
-    console.log(req.body)
+    const { pid } = req.params;
+
+    // Assuming req.body contains the updated data including photo URLs
     const updatedProduct = await productModel.findByIdAndUpdate(
-      req.params.pid,
+      pid,
       { ...req.body, slug: slugify(req.body.name) },
       { new: true }
     );
 
-    // Update the photos property if new photo URLs are provided
-    if (req.body.photos && Array.isArray(req.body.photos) && req.body.photos.length > 0) {
-      updatedProduct.photos = req.body.photos;
-    }
-
-    await updatedProduct.save();
-
-    res.status(201).send({
+    res.status(200).send({
       success: true,
       message: "Product Updated Successfully",
       product: updatedProduct,
@@ -190,9 +179,9 @@ export const updateProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error in Update product",
+      message: "Error in updating product",
     });
-  }
+  }  
 };
 // filters
 export const productFiltersController = async (req, res) => {

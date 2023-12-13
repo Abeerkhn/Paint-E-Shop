@@ -15,9 +15,17 @@ const CreateCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:8080/api/v1/category/create-category", {
-        name,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8080/api/v1/category/create-category",
+        {
+          name,
+        },
+        {
+          headers: {
+            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+          },
+        }
+      );
       if (data?.success) {
         toast.success(`${name} is created`);
         getAllCategory();
@@ -33,7 +41,9 @@ const CreateCategory = () => {
   //get all cat
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/v1/category/get-category");
+      const { data } = await axios.get(
+        "http://localhost:8080/api/v1/category/get-category"
+      );
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -72,7 +82,12 @@ const CreateCategory = () => {
   const handleDelete = async (pId) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8080/api/v1/category/delete-category/${pId}`
+        `http://localhost:8080/api/v1/category/delete-category/${pId}`,
+        {
+          headers: {
+            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+          },
+        }
       );
       if (data.success) {
         toast.success(`category is deleted`);

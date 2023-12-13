@@ -123,7 +123,7 @@ const HomePage = () => {
       <div style={{
         marginTop:"80px"
       }}>
- {/* <SimpleSlider /> */}
+ <SimpleSlider />
       </div>
       {/* banner image */}
       <div className="container-fluid row mt-3 home-page">
