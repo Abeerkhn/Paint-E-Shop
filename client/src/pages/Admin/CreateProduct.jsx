@@ -5,11 +5,16 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate } from "react-router-dom";
+import useImageUploader from "../../hooks/useUploadImage";
+import ColorShadesComponent from "../../components/Layout/ColorShadesComponent";
+import { getTags } from "../../components/constants/sharedApiCalls";
 const { Option } = Select;
 
 const CreateProduct = () => {
   const navigate = useNavigate();
+  const { handleImageUpload } = useImageUploader("dazmxqu77"); // Replace "YOUR_CLOUD_NAME_HERE" with your cloud name
   const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
   const [formValues, setFormValues] = useState({
     name: "", // lowercase 'name' instead of 'Name'
     description: "",
@@ -17,11 +22,20 @@ const CreateProduct = () => {
     category: "",
     quantity: "",
     shipping: "",
-    photo: null,
+    photo: [],
+    tags: [],
+    color: "#000",
   });
-  
-  console.log("Form data product", formValues);
 
+  console.log("Form data product", formValues);
+  const handleFileChange = async (event) => {
+    const files = event.target.files;
+    const uploadedImages = await handleImageUpload(files);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      photo: uploadedImages[0],
+    }));
+  };
   //get all category
   const getAllCategory = async () => {
     try {
@@ -38,38 +52,40 @@ const CreateProduct = () => {
   };
 
   useEffect(() => {
-    getAllCategory();
+    const fetchData = async () => {
+      try {
+        await getAllCategory();
+        const tagsFromCalls = await getTags();
+        setTags(tagsFromCalls.tags);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error or set default value for tags
+      }
+    };
+
+    fetchData();
   }, []);
 
   //create product function
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    console.log(formValues);
     try {
-      const productData = new FormData();
-  
-      // Append text fields
-      for (let key in formValues) {
-        if (key === "photo" && formValues[key]) {
-          // Append the photo file
-          productData.append(key, formValues[key]);
-        } else {
-          productData.append(key.toLowerCase(), formValues[key]);
-        }
-      }
-  
       const token = JSON.parse(localStorage.getItem("auth")).token;
+      const requestData = {
+        ...formValues,
+        category: formValues.category,
+      };
       const { data } = await axios.post(
         "http://localhost:8080/api/v1/product/create-product",
-        productData,
+        requestData,
         {
           headers: {
             Authorization: `${token}`,
-            "Content-Type": "multipart/form-data",
           },
         }
       );
-  
       if (data?.success) {
         toast.error(data?.message);
       } else {
@@ -81,39 +97,6 @@ const CreateProduct = () => {
       toast.error("Something went wrong");
     }
   };
-  
-  
-  
-  // const handleCreate = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const productData = new FormData();
-  //     for (let key in formValues) {
-  //       if (key === "photo" && formValues[key]) {
-  //         productData.append(key, formValues[key]);
-  //       } else {
-  //         productData.append(key, formValues[key]);
-  //       }
-  //     }
-  //     const { data } = axios.post(
-  //       "http://localhost:8080/api/v1/product/create-product",
-  //       productData,{
-  //         headers: {
-  //           Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
-  //         },
-  //       }
-  //     );
-  //     if (data?.success) {
-  //       toast.error(data?.message);
-  //     } else {
-  //       toast.success("Product Created Successfully");
-  //       navigate("/dashboard/admin/products");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Something went wrong");
-  //   }
-  // };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -168,13 +151,14 @@ const CreateProduct = () => {
                     type="file"
                     name="photo"
                     accept="image/*"
-                    onChange={handleInputChange}
+                    multiple
+                    onChange={handleFileChange}
                     hidden
                   />
                 </label>
               </div>
               {/* Display photo preview */}
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 {formValues.photo && (
                   <div className="text-center">
                     <img
@@ -185,7 +169,7 @@ const CreateProduct = () => {
                     />
                   </div>
                 )}
-              </div>
+              </div> */}
               {/* Product Name */}
               <div className="mb-3">
                 <input
@@ -248,7 +232,42 @@ const CreateProduct = () => {
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
+
+              <div className="mb-3">
+                <Select
+                  bordered={false}
+                  placeholder="Select Shipping"
+                  size="large"
+                  showSearch
+                  className="form-select mb-3"
+                  onChange={(value) => {
+                    setFormValues((prevValues) => ({
+                      ...prevValues,
+                      tags: [...prevValues.tags, value], // Appending the new tag to the existing array
+                    }));
+                  }}
+                >
+                  {console.log("Tags", tags)}
+                  {tags  &&
+                    tags?.map((tag, index) => {
+                      return (
+                        <Option key={tag._id} value={tag._id}>
+                          {tag.name}
+                        </Option>
+                      );
+                    })}
+                </Select>
+              </div>
               {/* Create product button */}
+
+              <div>
+                <input
+                  type="color"
+                  name="color"
+                  onChange={handleInputChange}
+                  value={formValues.color}
+                />
+              </div>
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleCreate}>
                   CREATE PRODUCT
