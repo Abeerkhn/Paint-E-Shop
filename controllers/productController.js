@@ -13,10 +13,19 @@ dotenv.config();
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity, shipping } = req.body;
-    console.log(name)
-    const { photo } = req.files;
-    //alidation
+    const {
+      name,
+      description,
+      price,
+      category,
+      quantity,
+      shipping,
+      tags,
+      color,
+      photos,
+    } = req.body;
+
+    // Validation
     switch (true) {
       case !name:
         return res.status(400).send({ error: "Name is Required" });
