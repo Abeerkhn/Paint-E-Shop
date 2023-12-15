@@ -103,7 +103,7 @@ export const getProductController = async (req, res) => {
 export const getSingleProductController = async (req, res) => {
   try {
     const product = await productModel
-      .findOne({ slug: req.params.slug })
+      .findOne({ _id: req.params.pid })
       .select("-photo")
       .populate("category");
     res.status(200).send({
