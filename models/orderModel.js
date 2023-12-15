@@ -11,7 +11,12 @@ const productObj = new mongoose.Schema({
   },
   name: {
     type: String
-  }
+  },
+  photos: [
+    {
+      type: String, // Assuming these are URLs of images stored on Cloudinary
+    },
+  ],
 
 })
 
