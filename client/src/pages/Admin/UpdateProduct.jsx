@@ -5,105 +5,135 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import useImageUploader from "../../hooks/useUploadImage";
+import { getTags } from "../../components/constants/sharedApiCalls";
 const { Option } = Select;
 
 const UpdateProduct = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const { _id } = useParams();
+  console.log("Params", _id);
+  const { handleImageUpload } = useImageUploader("dazmxqu77");
   const [categories, setCategories] = useState([]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [shipping, setShipping] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [id, setId] = useState("");
+  const [tags, setTags] = useState([]);
+  const [formValues, setFormValues] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    quantity: "",
+    shipping: "",
+    photos: [],
+    tags: [],
+    color: "#000",
+  });
 
-  //get single product
+  const handleFileChange = async (event) => {
+    const files = event.target.files;
+    const uploadedImages = await handleImageUpload(files);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      photos: [...prevValues.photos, uploadedImages[0]],
+    }));
+  };
+
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product/${params.slug}`
+        `http://localhost:8080/api/v1/product/get-product/${_id}`
       );
-      setName(data.product.name);
-      setId(data.product._id);
-      setDescription(data.product.description);
-      setPrice(data.product.price);
-      setPrice(data.product.price);
-      setQuantity(data.product.quantity);
-      setShipping(data.product.shipping);
-      setCategory(data.product.category._id);
+      setFormValues({
+        name: data.product.name,
+        description: data.product.description,
+        price: data.product.price,
+        category: data.product.category._id,
+        quantity: data.product.quantity,
+        shipping: data.product.shipping,
+        photos: data.product.photo, // Assuming 'photo' is a single URL
+        tags: data.product.tags,
+        color: data.product.color || "#000", // Assuming a default color if it's missing
+      });
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getSingleProduct();
-    //eslint-disable-next-line
-  }, []);
-  //get all category
+
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-category");
+      const { data } = await axios.get(
+        "http://localhost:8080/api/v1/category/get-category"
+      );
       if (data?.success) {
         setCategories(data?.category);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something wwent wrong in getting catgeory");
+      toast.error("Something went wrong in getting categories");
     }
   };
 
   useEffect(() => {
-    getAllCategory();
+    const fetchData = async () => {
+      try {
+        await getAllCategory();
+        const tagsFromCalls = await getTags();
+        setTags(tagsFromCalls.tags);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+    getSingleProduct(); 
   }, []);
 
-  //create product function
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const productData = new FormData();
-      productData.append("name", name);
-      productData.append("description", description);
-      productData.append("price", price);
-      productData.append("quantity", quantity);
-      photo && productData.append("photo", photo);
-      productData.append("category", category);
-      const { data } = axios.put(
-        `/api/v1/product/update-product/${id}`,
-        productData
+      const token = JSON.parse(localStorage.getItem("auth")).token;
+      const requestData = {
+        ...formValues,
+        category: formValues.category,
+      };
+      const { data } = await axios.put(
+        `http://localhost:8080/api/v1/product/update-product/${_id}`,
+        requestData,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       );
       if (data?.success) {
-        toast.error(data?.message);
-      } else {
         toast.success("Product Updated Successfully");
         navigate("/dashboard/admin/products");
+      } else {
+        toast.error(data?.message);
       }
     } catch (error) {
-      console.log(error);
-      toast.error("something went wrong");
-    }
-  };
-
-  //delete a product
-  const handleDelete = async () => {
-    try {
-      let answer = window.prompt("Are You Sure want to delete this product ? ");
-      if (!answer) return;
-      const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
-      );
-      toast.success("Product DEleted Succfully");
-      navigate("/dashboard/admin/products");
-    } catch (error) {
-      console.log(error);
+      console.error("Error updating product:", error);
       toast.error("Something went wrong");
     }
   };
+
+  const handleInputChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "photo") {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: files[0],
+      }));
+    } else {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
+  };
+
   return (
-    <Layout title={"Dashboard - Create Product"}>
-      <div className="container-fluid m-3 p-3">
+    <Layout title={"Dashboard - Update Product"}>
+      <div className="container-fluid m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -114,13 +144,16 @@ const UpdateProduct = () => {
               <Select
                 bordered={false}
                 placeholder="Select a category"
+                value={formValues.category}
                 size="large"
                 showSearch
                 className="form-select mb-3"
                 onChange={(value) => {
-                  setCategory(value);
+                  setFormValues((prevValues) => ({
+                    ...prevValues,
+                    category: value,
+                  }));
                 }}
-                value={category}
               >
                 {categories?.map((c) => (
                   <Option key={c._id} value={c._id}>
@@ -130,98 +163,106 @@ const UpdateProduct = () => {
               </Select>
               <div className="mb-3">
                 <label className="btn btn-outline-secondary col-md-12">
-                  {photo ? photo.name : "Upload Photo"}
+                  {formValues?.photos?.length > 0
+                    ? formValues.photos[0].name
+                    : "Upload Photo"}
                   <input
                     type="file"
                     name="photo"
                     accept="image/*"
-                    onChange={(e) => setPhoto(e.target.files[0])}
+                    multiple
+                    onChange={handleFileChange}
                     hidden
                   />
                 </label>
               </div>
-              <div className="mb-3">
-                {photo ? (
-                  <div className="text-center">
-                    <img
-                      src={URL.createObjectURL(photo)}
-                      alt="product_photo"
-                      height={"200px"}
-                      className="img img-responsive"
-                    />
-                  </div>
-                ) : (
-                  <div className="text-center">
-                    <img
-                      src={`/api/v1/product/product-photo/${id}`}
-                      alt="product_photo"
-                      height={"200px"}
-                      className="img img-responsive"
-                    />
-                  </div>
-                )}
-              </div>
+              {/* Add other necessary input fields for product details */}
               <div className="mb-3">
                 <input
                   type="text"
-                  value={name}
-                  placeholder="write a name"
+                  value={formValues.name}
+                  name="name"
+                  placeholder="Write a name"
                   className="form-control"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="mb-3">
                 <textarea
-                  type="text"
-                  value={description}
-                  placeholder="write a description"
+                  value={formValues.description}
+                  name="description"
+                  placeholder="Write a description"
                   className="form-control"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-
-              <div className="mb-3">
-                <input
-                  type="number"
-                  value={price}
-                  placeholder="write a Price"
-                  className="form-control"
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="mb-3">
                 <input
                   type="number"
-                  value={quantity}
-                  placeholder="write a quantity"
+                  value={formValues.price}
+                  name="price"
+                  placeholder="Enter Price"
                   className="form-control"
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="number"
+                  value={formValues.quantity}
+                  name="quantity"
+                  placeholder="Enter Quantity"
+                  className="form-control"
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="mb-3">
                 <Select
                   bordered={false}
-                  placeholder="Select Shipping "
+                  placeholder="Select Shipping"
                   size="large"
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => {
-                    setShipping(value);
+                    setFormValues((prevValues) => ({
+                      ...prevValues,
+                      shipping: value,
+                    }));
                   }}
-                  value={shipping ? "yes" : "No"}
                 >
                   <Option value="0">No</Option>
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
               <div className="mb-3">
+                <Select
+                  bordered={false}
+                  placeholder="Select Tags"
+                  size="large"
+                  showSearch
+                  className="form-select mb-3"
+                  onChange={(value) => {
+                    setFormValues((prevValues) => ({
+                      ...prevValues,
+                      tags: [...prevValues.tags, value], // Appending the new tag to the existing array
+                    }));
+                  }}
+                >
+                  {console.log("Tags", tags)}
+                  {tags &&
+                    tags?.map((tag, index) => {
+                      return (
+                        <Option key={tag._id} value={tag._id}>
+                          {tag.name}
+                        </Option>
+                      );
+                    })}
+                </Select>
+              </div>
+              {/* End of input fields */}
+              <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>
                   UPDATE PRODUCT
-                </button>
-              </div>
-              <div className="mb-3">
-                <button className="btn btn-danger" onClick={handleDelete}>
-                  DELETE PRODUCT
                 </button>
               </div>
             </div>

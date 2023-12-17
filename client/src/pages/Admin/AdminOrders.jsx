@@ -58,6 +58,7 @@ const AdminOrders = () => {
       console.log(error);
     }
   };
+  console.log("Orders",orders)
   return (
     <Layout title={"All Orders Data"}>
       <div className="row dashboard">
@@ -109,7 +110,7 @@ const AdminOrders = () => {
                       <div className="row mb-2 p-3 card flex-row" key={p._id}>
                         <div className="col-md-4">
                           <img
-                            src={`/api/v1/product/product-photo/${p._id}`}
+                            src={console.log(p)}
                             className="card-img-top"
                             alt={p.name}
                             width="100px"

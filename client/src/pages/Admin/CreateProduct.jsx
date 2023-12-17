@@ -22,7 +22,7 @@ const CreateProduct = () => {
     category: "",
     quantity: "",
     shipping: "",
-    photo: [],
+    photos: [],
     tags: [],
     color: "#000",
   });
@@ -33,7 +33,7 @@ const CreateProduct = () => {
     const uploadedImages = await handleImageUpload(files);
     setFormValues((prevValues) => ({
       ...prevValues,
-      photo: uploadedImages[0],
+      photos: [...prevValues.photos, uploadedImages[0]], // Appending the new image URL to the existing array
     }));
   };
   //get all category
@@ -87,10 +87,10 @@ const CreateProduct = () => {
         }
       );
       if (data?.success) {
-        toast.error(data?.message);
-      } else {
         toast.success("Product Created Successfully");
         navigate("/dashboard/admin/products");
+      } else {
+        toast.error(data?.message);
       }
     } catch (error) {
       console.log(error);
@@ -248,7 +248,7 @@ const CreateProduct = () => {
                   }}
                 >
                   {console.log("Tags", tags)}
-                  {tags  &&
+                  {tags &&
                     tags?.map((tag, index) => {
                       return (
                         <Option key={tag._id} value={tag._id}>

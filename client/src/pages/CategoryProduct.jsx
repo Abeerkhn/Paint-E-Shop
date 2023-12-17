@@ -55,7 +55,7 @@ const CategoryProduct = () => {
                     </p>
                     <div className="card-name-price">
                       <button
-                        className="btn btn-info ms-1"
+                        className="btn button-color ms-1"
                         onClick={() => navigate(`/product/${p.slug}`)}
                       >
                         More Details

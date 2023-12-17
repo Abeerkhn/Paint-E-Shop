@@ -23,7 +23,8 @@ const Header = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top " style={{
-        marginBottom:"100px"
+        marginBottom:"100px",
+      color:"#fff"
       }}>
         <div className="container-fluid">
           <button
@@ -37,14 +38,22 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link to="/" className="navbar-brand">
+          <div className="collapse navbar-collapse" id="navbarTogglerDemo01" style={{
+            color:"#fff"
+          }}>
+            <Link to="/" className="navbar-brand " style={{
+              color:"#fff"
+            }}>
               🛒 Paint App
             </Link>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0" style={{
+              color:"#fff"
+            }}>
               <SearchInput />
               <li className="nav-item">
-                <NavLink to="/" className="nav-link ">
+                <NavLink to="/" className="nav-link " style={{
+              color:"#fff"
+            }}>
                   Home
                 </NavLink>
               </li>
@@ -53,12 +62,16 @@ const Header = () => {
                   className="nav-link dropdown-toggle"
                   to={"/categories"}
                   data-bs-toggle="dropdown"
+                  style={{
+                    color:"#fff"
+                  }}
                 >
                   Categories
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to={"/categories"}>
+                    <Link className="dropdown-item" to={"/categories"}
+                    >
                       All Categories
                     </Link>
                   </li>
@@ -78,13 +91,19 @@ const Header = () => {
 
               {!auth?.user ? (
                 <>
-                  <li className="nav-item">
-                    <NavLink to="/register" className="nav-link">
+                  <li className="nav-item" style={{
+              color:"#fff"
+            }}>
+                    <NavLink to="/register" className="nav-link" style={{
+              color:"#fff"
+            }}>
                       Register
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/login" className="nav-link">
+                    <NavLink to="/login" className="nav-link" style={{
+              color:"#fff"
+            }}>
                       Login
                     </NavLink>
                   </li>
@@ -96,8 +115,12 @@ const Header = () => {
                       className="nav-link dropdown-toggle"
                       href=""
                       role="button"
+                      
                       data-bs-toggle="dropdown"
-                      style={{ border: "none" }}
+                      style={{
+                        color:"#fff",
+                        border:"none"
+                      }}
                     >
                       {auth?.user?.name}
                     </NavLink>
@@ -125,9 +148,13 @@ const Header = () => {
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <NavLink to="/cart" className="nav-link">
-                  <Badge count={cart?.length} showZero offset={[10, -5]}>
+              <li className="nav-item" style={{
+              color:"#fff"
+            }}>
+                <NavLink to="/cart" className="nav-link" style={{
+              color:"#fff"
+            }}>
+                  <Badge count={cart?.length} showZero offset={[10, -5]} >
                     Cart
                   </Badge>
                 </NavLink>

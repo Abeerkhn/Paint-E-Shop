@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.button-color{
+  background: #FD6C37 !important;
+}
+.btn-custom-color {
+  background-color: #fd6c37 !important;
+  color: #fff !important;
+}
+

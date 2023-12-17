@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from "./../components/Layout/Layout";
 import { AiOutlineReload } from "react-icons/ai";
+import FullWidthVideo from "../components/calculator/VideoComponent";
 import "../styles/Homepage.css";
 import SimpleSlider from "../components/Layout/Carousel";
 const HomePage = () => {
@@ -120,10 +121,15 @@ const HomePage = () => {
   return (
     <Layout title={"Paint Shop - Best offers "}>
       {/* banner image */}
-      <div style={{
-        marginTop:"80px"
-      }}>
- <SimpleSlider />
+      <div
+        style={
+          {
+            // marginTop: "80px",
+          }
+        }
+      >
+        {/* <SimpleSlider /> */}
+        <FullWidthVideo />
       </div>
       {/* banner image */}
       <div className="container-fluid row mt-3 home-page">
@@ -164,11 +170,7 @@ const HomePage = () => {
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <div className="card m-2" key={p._id}>
-                <img
-                  src={`/api/v1/product/product-photo/${p._id}`}
-                  className="card-img-top"
-                  alt={p.name}
-                />
+                <img src={p.photos[0]} className="card-img-top" alt={p.name} />
                 <div className="card-body">
                   <div className="card-name-price">
                     <h5 className="card-title">{p.name}</h5>
@@ -184,8 +186,8 @@ const HomePage = () => {
                   </p>
                   <div className="card-name-price">
                     <button
-                      className="btn btn-info ms-1"
-                      onClick={() => navigate(`/product/${p.slug}`)}
+                      className="btn button-color ms-1"
+                      onClick={() => navigate(`/product/${p._id}`)}
                     >
                       More Details
                     </button>

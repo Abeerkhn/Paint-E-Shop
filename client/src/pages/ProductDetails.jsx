@@ -6,19 +6,20 @@ import "../styles/ProductDetailsStyles.css";
 
 const ProductDetails = () => {
   const params = useParams();
+  console.log("Params", params);
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  console.log("Product", product);
   //initalp details
   useEffect(() => {
-    if (params?.slug) getProduct();
-  }, [params?.slug]);
+    if (params?._id) getProduct();
+  }, [params?._id]);
   //getProduct
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product/${params.slug}`
+        `http://localhost:8080/api/v1/product/get-product/${params._id}`
       );
       setProduct(data?.product);
       getSimilarProduct(data?.product._id, data?.product.category._id);
@@ -42,7 +43,7 @@ const ProductDetails = () => {
       <div className="row container product-details">
         <div className="col-md-6">
           <img
-            src={`/api/v1/product/product-photo/${product._id}`}
+            src={product.photos && product?.photos[0]}
             className="card-img-top"
             alt={product.name}
             height="300"
@@ -75,7 +76,7 @@ const ProductDetails = () => {
           {relatedProducts?.map((p) => (
             <div className="card m-2" key={p._id}>
               <img
-                src={`/api/v1/product/product-photo/${p._id}`}
+                src={p.photos[0]}
                 className="card-img-top"
                 alt={p.name}
               />
@@ -94,7 +95,7 @@ const ProductDetails = () => {
                 </p>
                 <div className="card-name-price">
                   <button
-                    className="btn btn-info ms-1"
+                    className="btn button-color ms-1"
                     onClick={() => navigate(`/product/${p.slug}`)}
                   >
                     More Details

@@ -63,7 +63,12 @@ const CreateCategory = () => {
     try {
       const { data } = await axios.put(
         `http://localhost:8080/api/v1/category/update-category/${selected._id}`,
-        { name: updatedName }
+        { name: updatedName },
+        {
+          headers: {
+            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+          },
+        }
       );
       if (data?.success) {
         toast.success(`${updatedName} is updated`);
