@@ -63,6 +63,7 @@ const CartPage = () => {
     return originalArray.map((item) => ({
       productId: item._id,
       price: item.price,
+      photos: item.photos,
     }));
   }
 
@@ -70,7 +71,6 @@ const CartPage = () => {
   const handlePayment = async () => {
     try {
       const actualCart = transformArray(cart);
-
       setLoading(true);
       const { data } = await axios.post(
         "http://localhost:8080/api/v1/orders/cod-payment",

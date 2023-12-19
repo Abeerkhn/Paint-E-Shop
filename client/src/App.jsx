@@ -25,6 +25,8 @@ import CategoryProduct from "./pages/CategoryProduct";
 import CartPage from "./pages/CartPage";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import PaintCalculator from "./components/calculator/PaintCalculator";
+import CreateTag from "./pages/Admin/CreateTag";
+import ContactUs from "./pages/ContactUs";
 function App() {
   return (
     <>
@@ -48,12 +50,13 @@ function App() {
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/users" element={<Users />} />
           <Route path="admin/orders" element={<AdminOrders />} />
+          <Route path="admin/create-tag" element={<CreateTag />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPasssword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/calculator" element={<PaintCalculator />} />
         <Route path="*" element={<Pagenotfound />} />
