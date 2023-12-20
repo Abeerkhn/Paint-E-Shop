@@ -22,10 +22,13 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top " style={{
-        marginBottom:"100px",
-      color:"#fff"
-      }}>
+      <nav
+        className="navbar navbar-expand-lg bg-body-tertiary fixed-top "
+        style={{
+          marginBottom: "100px",
+          color: "#fff",
+        }}
+      >
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -38,22 +41,37 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo01" style={{
-            color:"#fff"
-          }}>
-            <Link to="/" className="navbar-brand " style={{
-              color:"#fff"
-            }}>
+          <div
+            className="collapse navbar-collapse"
+            id="navbarTogglerDemo01"
+            style={{
+              color: "#fff",
+            }}
+          >
+            <Link
+              to="/"
+              className="navbar-brand "
+              style={{
+                color: "#fff",
+              }}
+            >
               🛒 Paint App
             </Link>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0" style={{
-              color:"#fff"
-            }}>
+            <ul
+              className="navbar-nav ms-auto mb-2 mb-lg-0"
+              style={{
+                color: "#fff",
+              }}
+            >
               <SearchInput />
               <li className="nav-item">
-                <NavLink to="/" className="nav-link " style={{
-              color:"#fff"
-            }}>
+                <NavLink
+                  to="/"
+                  className="nav-link "
+                  style={{
+                    color: "#fff",
+                  }}
+                >
                   Home
                 </NavLink>
               </li>
@@ -63,15 +81,14 @@ const Header = () => {
                   to={"/categories"}
                   data-bs-toggle="dropdown"
                   style={{
-                    color:"#fff"
+                    color: "#fff",
                   }}
                 >
                   Categories
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to={"/categories"}
-                    >
+                    <Link className="dropdown-item" to={"/categories"}>
                       All Categories
                     </Link>
                   </li>
@@ -88,22 +105,43 @@ const Header = () => {
                     ))}
                 </ul>
               </li>
-
+              <li>
+                <Link
+                  className="nav-link"
+                  to={"/calculator"}
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Paint Calculator
+                </Link>
+              </li>
               {!auth?.user ? (
                 <>
-                  <li className="nav-item" style={{
-              color:"#fff"
-            }}>
-                    <NavLink to="/register" className="nav-link" style={{
-              color:"#fff"
-            }}>
+                  <li
+                    className="nav-item"
+                    style={{
+                      color: "#fff",
+                    }}
+                  >
+                    <NavLink
+                      to="/register"
+                      className="nav-link"
+                      style={{
+                        color: "#fff",
+                      }}
+                    >
                       Register
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/login" className="nav-link" style={{
-              color:"#fff"
-            }}>
+                    <NavLink
+                      to="/login"
+                      className="nav-link"
+                      style={{
+                        color: "#fff",
+                      }}
+                    >
                       Login
                     </NavLink>
                   </li>
@@ -115,11 +153,10 @@ const Header = () => {
                       className="nav-link dropdown-toggle"
                       href=""
                       role="button"
-                      
                       data-bs-toggle="dropdown"
                       style={{
-                        color:"#fff",
-                        border:"none"
+                        color: "#fff",
+                        border: "none",
                       }}
                     >
                       {auth?.user?.name}
@@ -148,14 +185,34 @@ const Header = () => {
                   </li>
                 </>
               )}
-              <li className="nav-item" style={{
-              color:"#fff"
-            }}>
-                <NavLink to="/cart" className="nav-link" style={{
-              color:"#fff"
-            }}>
-                  <Badge count={cart?.length} showZero offset={[10, -5]} >
-                    Cart
+              <li
+                className="nav-item"
+                style={{
+                  color: "#fff",
+                }}
+              >
+                <NavLink
+                  to="/cart"
+                  className="nav-link"
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  <Badge
+                    count={cart?.length}
+                    showZero
+                    offset={[10, -5]}
+                    style={{
+                      color: "#fff",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#fff",
+                      }}
+                    >
+                      Cart
+                    </p>{" "}
                   </Badge>
                 </NavLink>
               </li>

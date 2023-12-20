@@ -36,16 +36,20 @@ const PaintCalculator = () => {
     const selectedPaint = paintBrands.find(
       (brand) => brand.name === formData.selectedPaintBrand
     );
-
-    const calculatedPaint =
+    let calculatedPaint =
       wallArea *
       parseFloat(formData.wallCondition) *
       parseFloat(formData.paintCategory) *
       formData.coatingNumber *
       (selectedPaint ? selectedPaint.coverage_rate : 1); // Adjust with actual formula
-
+  
+    // Cap the calculated paint to a maximum of 100 gallons
+    calculatedPaint = Math.min(calculatedPaint, 100);
+  
     setFormData({ ...formData, paintNeeded: calculatedPaint });
+    handleShowPaint()
   };
+  
 
   useEffect(() => {
     let currentIndex = 0;
@@ -62,7 +66,9 @@ const PaintCalculator = () => {
       clearInterval(interval);
     };
   }, [fullText]);
-  useEffect(() => {
+
+
+ const handleShowPaint = ()=>{
     if (formData.paintNeeded !== 0) {
       Swal.fire({
         title: "Paint Estimation Result",
@@ -75,7 +81,7 @@ const PaintCalculator = () => {
         showCloseButton: true, // If you want to show a close button
       });
     }
-  }, [formData.paintNeeded]);
+  }
 
   return (
     <>
