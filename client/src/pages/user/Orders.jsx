@@ -57,7 +57,7 @@ const Orders = () => {
                           <td>{i + 1}</td>
                           <td>{o?.status}</td>
                           <td>{o?.buyer?.name}</td>
-                          <td>{moment(o?.createAt).fromNow()}</td>
+                          <td>{moment(o?.createdAt).fromNow()}</td>
                           <td>{o?.payment.method}</td>
                           <td>{o?.products?.length}</td>
                         </tr>
@@ -70,18 +70,26 @@ const Orders = () => {
                           key={p.productId}
                         >
                           <div className="col-md-4">
-                            <img
-                              src={``}
-                              className="card-img-top"
-                              alt={p.name}
-                              width="100px"
-                              height={"100px"}
-                            />
+                            {
+                              p.photos && p.photos.length > 0 && (
+                                <img
+                                src={p.photos && p.photos[0]}
+                                className="card-img-top"
+                                alt={p.name}
+                                width="100%"
+                                maxHeight="100px"
+                                height="auto"
+                              />
+                              )
+                            }
+                          
                           </div>
                           <div className="col-md-8">
                             <p>{p.name}</p>
                             {/* <p>{p.description.substring(0, 30)}</p> */}
-                            <p>Price : {p.price}</p>
+                            <p className="fw-bold">Price : {p.price}</p>
+                            <p className="fw-bold">Buyer : {o.buyer.name}</p>
+
                           </div>
                         </div>
                       ))}

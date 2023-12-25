@@ -72,7 +72,8 @@ const seedData = async () => {
     const products = await productModel.create([
       {
         name: "Product 1",
-        description: "Description for Product 1",
+        description:
+          "Vibrant hues encased within, ready to transform walls with a stroke, a reservoir of creative expression ",
         price: 19.99,
         category: categories[0]._id,
         tags: [tags[2]._id],
@@ -80,15 +81,15 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 1"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
 
         // Add more product data as needed
       },
       {
         name: "Product 2",
-        description: "Description for Product 2",
+        description:
+          "An artful repository, housing a kaleidoscope of colors, awaiting to splash creativity - the paint bucket.",
         price: 29.99,
         category: categories[1]._id,
         tags: [tags[2]._id],
@@ -96,14 +97,14 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 2"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
         // A
       },
       {
         name: "Product 3",
-        description: "Description for Product 3",
+        description:
+          "A reservoir of inspiration, encapsulating hues of imagination, poised for artistic endeavors - the paint bucket.",
         price: 39.99,
         category: categories[2]._id,
         tags: [tags[3]._id],
@@ -111,14 +112,14 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 3"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
         // A
       },
       {
         name: "Product 4",
-        description: "Description for Product 4",
+        description:
+          "A sturdy container, harboring the essence of color, poised to redefine spaces - the paint bucket.",
         price: 49.99,
         category: categories[3]._id,
         tags: [tags[4]._id],
@@ -126,13 +127,13 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 4"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
       },
       {
         name: "Product 5",
-        description: "Description for Product 5",
+        description:
+          "A sturdy container, harboring the essence of color, poised to redefine spaces - the paint bucket.",
         price: 59.99,
         category: categories[4]._id,
         tags: [tags[5]._id],
@@ -140,14 +141,14 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 5"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
         // A
       },
       {
         name: "Product 6",
-        description: "Description for Product 6",
+        description:
+          "A robust vessel, brimming with vibrant pigments, poised to infuse life onto blank canvases - the paint bucket.",
         price: 69.99,
         category: categories[0]._id,
         tags: [tags[0]._id, tags[1]._id, tags[2]._id],
@@ -155,14 +156,14 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 6"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
         // A
       },
       {
         name: "Product 7",
-        description: "Description for Product 7",
+        description:
+          "A robust vessel, brimming with vibrant pigments, poised to infuse life onto blank canvases - the paint bucket.",
         price: 79.99,
         category: categories[1]._id,
         tags: [tags[3]._id, tags[4]._id],
@@ -170,8 +171,7 @@ const seedData = async () => {
         quantity: 123,
         slug: generateSlug("Product 7"),
         photos: [
-          "https://dummyurl1.com/product1.jpg",
-          "https://dummyurl2.com/product1.jpg",
+          "https://res.cloudinary.com/dazmxqu77/image/upload/v1703520579/p9pa7oay4e317ibns1ak.png",
         ],
       },
 

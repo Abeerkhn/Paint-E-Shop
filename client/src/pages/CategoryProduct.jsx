@@ -36,7 +36,7 @@ const CategoryProduct = () => {
               {products?.map((p) => (
                 <div className="card m-2" key={p._id}>
                   <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
+                    src={p.photos.length > 0 && p.photos[0]}
                     className="card-img-top"
                     alt={p.name}
                   />
@@ -53,10 +53,26 @@ const CategoryProduct = () => {
                     <p className="card-text ">
                       {p.description.substring(0, 60)}...
                     </p>
+                    <div
+                  className="d-flex justify-content-start align-items-bottom"
+                  style={{
+                    gap: "10px",
+                  }}
+                >
+                  <p>Color : </p>
+                  <div
+                    style={{
+                      width: "50px",
+                      height: "20px",
+                      background: p.color,
+                      borderRadius: "5px",
+                    }}
+                  ></div>
+                </div>
                     <div className="card-name-price">
                       <button
                         className="btn button-color ms-1"
-                        onClick={() => navigate(`/product/${p.slug}`)}
+                        onClick={() => navigate(`/product/${p._id}`)}
                       >
                         More Details
                       </button>

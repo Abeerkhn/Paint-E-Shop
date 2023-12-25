@@ -58,7 +58,12 @@ const AdminOrders = () => {
       console.log(error);
     }
   };
-  console.log("Orders",orders)
+  console.log("Orders", orders);
+  function convertTimestampToNormalDate(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleString(); // Convert to a readable date format
+  }
+
   return (
     <Layout title={"All Orders Data"}>
       <div className="row dashboard">
@@ -98,13 +103,14 @@ const AdminOrders = () => {
                         </Select>
                       </td>
                       {/* <td>{o?.buyer?.name}</td> */}
-                      <td>{moment(o?.createAt).fromNow()}</td>
+                      <td>{moment(o?.createdAt).fromNow()}</td>
                       <td>{o?.payment.method !== "COD" ? "COD " : "COD"}</td>
                       <td>{o?.products?.length}</td>
                     </tr>
                   </tbody>
                 </table>
-                <div className="container">
+                {console.log("Inside Orders", o)}
+                {/* <div className="container">
                   {orders &&
                     orders.map((p, i) => (
                       <div className="row mb-2 p-3 card flex-row" key={p._id}>
@@ -119,12 +125,11 @@ const AdminOrders = () => {
                         </div>
                         <div className="col-md-8">
                           <p>{p.name}</p>
-                          {/* <p>{p.description.substring(0, 30)}</p> */}
                           <p>Price : {p.payment.amount}</p>
                         </div>
                       </div>
                     ))}
-                </div>
+                </div> */}
               </div>
             );
           })}

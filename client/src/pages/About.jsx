@@ -37,20 +37,20 @@ const About = () => {
           </div>
           <div className="col-md-4">
             <p className="text-justify mt-2">
-              Absolutely! Here's an expanded version for the "Paintopia" about
-              page: Welcome to Paintopia, your haven for colors and creative
+              Absolutely! Here's an expanded version for the "Mas Paints" about
+              page: Welcome to Mas Paints, your haven for colors and creative
               expressions! Nestled at the intersection of artistry and
-              innovation, Paintopia stands as a beacon for those seeking to
+              innovation, Mas Paints stands as a beacon for those seeking to
               infuse their world with vibrancy and personality.
               <br />
               Our journey began with a simple yet powerful belief: that every
               surface is a canvas, waiting to be adorned with the hues of
-              imagination. With this vision in mind, Paintopia has evolved into
+              imagination. With this vision in mind, Mas Paints has evolved into
               a sanctuary for enthusiasts, professionals, and homeowners alike,
               offering an unmatched array of paints, tools, and expertise.
               <br />
               <i>
-                At Paintopia, the journey of painting transcends the act of
+                At Mas Paints, the journey of painting transcends the act of
                 applying colors; it's an exploration of emotions, an infusion of
                 character, and a celebration of self-expression. We understand
                 the transformative power of color, and our extensive palette
@@ -103,12 +103,12 @@ const About = () => {
               our experts are here to turn your vision into a masterpiece.
               <br />
               <br />
-              Environmental responsibility is integral to Paintopia's
+              Environmental responsibility is integral to Mas Paints's
               philosophy. We are proud to offer an extensive range of
               eco-friendly paints that minimize our ecological footprint without
               compromising on quality or vibrancy.
               <br />
-              More than just a paint store, Paintopia is a community hub,
+              More than just a paint store, Mas Paints is a community hub,
               fostering connections, and inspiring collaborations. We host
               workshops, seminars, and events to nurture a thriving community of
               artists, designers, and enthusiasts, sharing knowledge and
@@ -120,12 +120,12 @@ const About = () => {
           <div className="col-md-4">
             <p className="text-justify mt-2">
               As we reflect on our journey, we remain humbled by the unwavering
-              support that you have bestowed upon us. Paintopia is not just a
+              support that you have bestowed upon us. Mas Paints is not just a
               store; it's a canvas onto which each of you has left an indelible
               mark, painting stories of inspiration, passion, and creativity.
               From the depths of our colors and the core of our creativity, we
               express our deepest gratitude. Thank you for being the driving
-              force behind Paintopia's colorful odyssey. Your support fuels our
+              force behind Mas Paints's colorful odyssey. Your support fuels our
               commitment to continue painting the world with inspiration,
               innovation, and the joy of endless possibilities.
               <br />
@@ -133,7 +133,7 @@ const About = () => {
               With immense gratitude,
               <br />
               <br />
-              The Paintopia Family
+              The Mas Paints Family
             </p>
           </div>
           <div className="col-md-6 ">

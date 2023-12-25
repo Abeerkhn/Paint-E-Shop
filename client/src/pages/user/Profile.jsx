@@ -27,13 +27,21 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("http://localhost:8080/api/v1/auth/profile", {
-        name,
-        email,
-        password,
-        phone,
-        address,
-      });
+      const { data } = await axios.put(
+        "http://localhost:8080/api/v1/auth/update-profile",
+        {
+          name,
+          email,
+          password,
+          phone,
+          address,
+        },
+        {
+          headers: {
+            Authorization: `${JSON.parse(localStorage.getItem("auth")).token}`,
+          },
+        }
+      );
       if (data?.errro) {
         toast.error(data?.error);
       } else {
@@ -105,7 +113,7 @@ const Profile = () => {
                 <div className="mb-3">
                   <input
                     type="text"
-                    value={address}
+                    value={address.city}
                     onChange={(e) => setAddress(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"

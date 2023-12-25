@@ -7,7 +7,8 @@ import {
   units,
 } from "./calculatorData";
 import Layout from "../Layout/Layout";
-import Swal from "sweetalert2";
+import SimpleSlider from "../Layout/Carousel";
+
 const PaintCalculator = () => {
   const [formData, setFormData] = useState({
     length: 0,
@@ -21,17 +22,25 @@ const PaintCalculator = () => {
   });
   const [text, setText] = useState("");
   const [fullText, setFullText] = useState("Calculate Paint Before You Buy");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setIsCalculated(false); // Reset the flag when input changes
   };
 
   const handleCalculate = () => {
+    if (isCalculated) return; // If already calculated, prevent re-calculation
+
+    if (
+      Object.values(formData).some((value) => value === "") ||
+      Object.keys(formData).length !== 8
+    ) {
+      setText("Please select values for all fields");
+      return;
+    }
+
     const wallArea = formData.length * formData.width;
     const selectedPaint = paintBrands.find(
       (brand) => brand.name === formData.selectedPaintBrand
@@ -41,15 +50,21 @@ const PaintCalculator = () => {
       parseFloat(formData.wallCondition) *
       parseFloat(formData.paintCategory) *
       formData.coatingNumber *
-      (selectedPaint ? selectedPaint.coverage_rate : 1); // Adjust with actual formula
-  
-    // Cap the calculated paint to a maximum of 100 gallons
-    calculatedPaint = Math.min(calculatedPaint, 100);
-  
+      (selectedPaint ? selectedPaint.coverage_rate : 1);
+
+    if (calculatedPaint < 1) {
+      setText("Insufficient data for calculation");
+      return;
+    }
+
+    if (calculatedPaint > 1000) {
+      calculatedPaint = Math.floor(Math.random() * (1000 - 900 + 1)) + 900;
+    }
+
     setFormData({ ...formData, paintNeeded: calculatedPaint });
-    handleShowPaint()
+    setText(`Paint Needed: ${formData.paintNeeded} gallons`);
+    setIsCalculated(true); // Set the flag to true after calculation
   };
-  
 
   useEffect(() => {
     let currentIndex = 0;
@@ -67,60 +82,14 @@ const PaintCalculator = () => {
     };
   }, [fullText]);
 
-
- const handleShowPaint = ()=>{
-    if (formData.paintNeeded !== 0) {
-      Swal.fire({
-        title: "Paint Estimation Result",
-        text: `Paint Needed: ${formData.paintNeeded} gallons`,
-        icon: "success",
-        confirmButtonText: "Close",
-        customClass: {
-          confirmButton: "btn-custom-color",
-        },
-        showCloseButton: true, // If you want to show a close button
-      });
-    }
-  }
-
   return (
     <>
       <Layout>
-        <div
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            height: "70vh",
-            marginTop: "10vh",
-          }}
-        >
-          <img
-            src="/images/paint_calculator_walpaper.jpg" // Replace with your image path
-            alt="Banner"
-            style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: -1,
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              color: "white",
-              textAlign: "center",
-              paddingTop: "15vh",
-              fontFamily: "Arial, sans-serif",
-              fontSize: "2em",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <h1>{text}</h1>
-          </div>
+        <div style={{
+          marginTop:"20px"
+        }}>
+     <SimpleSlider />
         </div>
-
         <div
           style={{
             maxWidth: "50%",
@@ -249,6 +218,20 @@ const PaintCalculator = () => {
             >
               Calculate
             </button>
+          </div>
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
+              color: "black",
+              textAlign: "center",
+              paddingTop: "15vh",
+              fontFamily: "Arial, sans-serif",
+              fontSize: "2em",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <h1>{text}</h1>
           </div>
         </div>
       </Layout>

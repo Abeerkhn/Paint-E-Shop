@@ -184,6 +184,22 @@ const HomePage = () => {
                   <p className="card-text ">
                     {p.description.substring(0, 60)}...
                   </p>
+                  <div
+                    className="d-flex justify-content-start align-items-bottom"
+                    style={{
+                      gap: "10px",
+                    }}
+                  >
+                    <p>Color : </p>
+                    <div
+                      style={{
+                        width: "50px",
+                        height: "20px",
+                        background: p.color,
+                        borderRadius: "5px",
+                      }}
+                    ></div>
+                  </div>
                   <div className="card-name-price">
                     <button
                       className="btn button-color ms-1"
@@ -222,7 +238,6 @@ const HomePage = () => {
                   "Loading ..."
                 ) : (
                   <>
-                    {" "}
                     Loadmore <AiOutlineReload />
                   </>
                 )}

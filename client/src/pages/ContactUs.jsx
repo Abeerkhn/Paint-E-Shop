@@ -4,8 +4,6 @@ const ContactUs = () => {
   return (
     <>
   <Layout>
-
-
     <div style={{ backgroundColor: " #FD7C47" }}>
       <div className="container">
         <div className="row justify-content-center align-items-center vh-100">

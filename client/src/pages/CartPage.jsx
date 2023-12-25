@@ -96,7 +96,7 @@ const CartPage = () => {
   };
   console.log(
     "token in handlePayment",
-    JSON.parse(localStorage.getItem("auth")).token
+    // JSON.parse(localStorage.getItem("auth")).token
   );
   return (
     <Layout>
@@ -117,18 +117,27 @@ const CartPage = () => {
             </h1>
           </div>
         </div>
-        <div className="container ">
-          <div className="row ">
-            <div className="col-md-7  p-0 m-0">
+        <div className="container " style={{
+              height:"auto !important"
+            }}>
+          <div className="row " style={{
+              height:"auto !important"
+            }}>
+            <div className="col-md-7 p-0 m-0" style={{
+              height:"auto !important"
+            }}>
               {cart?.map((p) => (
-                <div className="row card flex-row" key={p._id}>
+                <div className="row card flex-row " key={p._id} style={{
+                  height:"auto !important"
+                }}>
                   <div className="col-md-4">
                     <img
-                      src={`/api/v1/product/product-photo/${p._id}`}
+                      src={p.photos.length > 0 && p.photos[0]}
                       className="card-img-top"
                       alt={p.name}
                       width="100%"
-                      height={"130px"}
+                      height="100px"
+                      maxHeight="100px"
                     />
                   </div>
                   <div className="col-md-4">

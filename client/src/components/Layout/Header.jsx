@@ -55,7 +55,7 @@ const Header = () => {
                 color: "#fff",
               }}
             >
-              🛒 Paint App
+              🛒 MAS-PAINTS
             </Link>
             <ul
               className="navbar-nav ms-auto mb-2 mb-lg-0"

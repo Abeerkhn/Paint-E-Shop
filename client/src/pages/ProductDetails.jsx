@@ -46,8 +46,8 @@ const ProductDetails = () => {
             src={product.photos && product?.photos[0]}
             className="card-img-top"
             alt={product.name}
-            height="300"
-            width={"350px"}
+            height="auto"
+            width="300px"
           />
         </div>
         <div className="col-md-6 product-details-info">
@@ -63,6 +63,22 @@ const ProductDetails = () => {
             })}
           </h6>
           <h6>Category : {product?.category?.name}</h6>
+          <div
+            className="d-flex justify-content-start align-items-bottom"
+            style={{
+              gap: "10px",
+            }}
+          >
+            <p>Color : </p>
+            <div
+              style={{
+                width: "50px",
+                height: "20px",
+                background: product.color,
+                borderRadius: "5px",
+              }}
+            ></div>
+          </div>
           <button class="btn btn-secondary ms-1">ADD TO CART</button>
         </div>
       </div>
@@ -75,11 +91,7 @@ const ProductDetails = () => {
         <div className="d-flex flex-wrap">
           {relatedProducts?.map((p) => (
             <div className="card m-2" key={p._id}>
-              <img
-                src={p.photos[0]}
-                className="card-img-top"
-                alt={p.name}
-              />
+              <img src={p.photos[0]} className="card-img-top" alt={p.name} />
               <div className="card-body">
                 <div className="card-name-price">
                   <h5 className="card-title">{p.name}</h5>
@@ -93,10 +105,26 @@ const ProductDetails = () => {
                 <p className="card-text ">
                   {p.description.substring(0, 60)}...
                 </p>
+                <div
+                  className="d-flex justify-content-start align-items-bottom"
+                  style={{
+                    gap: "10px",
+                  }}
+                >
+                  <p>Color : </p>
+                  <div
+                    style={{
+                      width: "50px",
+                      height: "20px",
+                      background: p.color,
+                      borderRadius: "5px",
+                    }}
+                  ></div>
+                </div>
                 <div className="card-name-price">
                   <button
                     className="btn button-color ms-1"
-                    onClick={() => navigate(`/product/${p.slug}`)}
+                    onClick={() => navigate(`/product/${p._id}`)}
                   >
                     More Details
                   </button>
