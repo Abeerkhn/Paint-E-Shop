@@ -106,15 +106,40 @@ const Header = () => {
                 </ul>
               </li>
               <li>
-                <Link
-                  className="nav-link"
-                  to={"/calculator"}
-                  style={{
-                    color: "#fff",
-                  }}
-                >
-                  Paint Calculator
-                </Link>
+                <li className="nav-item dropdown">
+                  <NavLink
+                    className="nav-link dropdown-toggle"
+                    href=""
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    style={{
+                      color: "#fff",
+                      border: "none",
+                    }}
+                  >
+                    Tools
+                  </NavLink>
+                  <ul className="dropdown-menu">
+                    <Link
+                      className="nav-link"
+                      to={"/calculator"}
+                      style={{
+                        color: "#000",
+                      }}
+                    >
+                      Paint Calculator
+                    </Link>
+                    <Link
+                      className="nav-link"
+                      to={"/color-scheme"}
+                      style={{
+                        color: "#000",
+                      }}
+                    >
+                     Color Scheme
+                    </Link>
+                  </ul>
+                </li>
               </li>
               {!auth?.user ? (
                 <>

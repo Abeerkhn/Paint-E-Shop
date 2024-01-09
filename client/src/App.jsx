@@ -27,6 +27,8 @@ import AdminOrders from "./pages/Admin/AdminOrders";
 import PaintCalculator from "./components/calculator/PaintCalculator";
 import CreateTag from "./pages/Admin/CreateTag";
 import ContactUs from "./pages/ContactUs";
+import ColorScheme from "./pages/ColorScheme";
+
 function App() {
   return (
     <>
@@ -59,6 +61,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/calculator" element={<PaintCalculator />} />
+        <Route path="/color-scheme" element={<ColorScheme />} />
         <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </>

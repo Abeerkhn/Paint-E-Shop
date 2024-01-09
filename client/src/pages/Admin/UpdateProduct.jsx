@@ -27,7 +27,7 @@ const UpdateProduct = () => {
     tags: [],
     color: "#000",
   });
-
+console.log("Color ", formValues)
   const handleFileChange = async (event) => {
     const files = event.target.files;
     const uploadedImages = await handleImageUpload(files);
@@ -259,6 +259,12 @@ const UpdateProduct = () => {
                     })}
                 </Select>
               </div>
+              <input
+                  type="color"
+                  name="color"
+                  onChange={handleInputChange}
+                  value={formValues.color}
+                />
               {/* End of input fields */}
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>
