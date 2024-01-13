@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
+import Form from 'react-bootstrap/Form';
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +13,9 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [answer, setAnswer] = useState("");
+  const [role,setRole] = useState("");
   const navigate = useNavigate();
+  const [wantToSell, setWantToSell] = useState(false);
 
   // form function
   const handleSubmit = async (e) => {
@@ -24,6 +28,8 @@ const Register = () => {
         phone,
         address,
         answer,
+        role: wantToSell ? 1 : 0, // Set role based on the user's choice
+
       });
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
@@ -108,6 +114,17 @@ const Register = () => {
               placeholder="What is Your Favorite sports"
               required
             />
+          </div>
+          <div className="mb-3">
+          <Form>
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label="Want to Sell Also ?"
+                checked={wantToSell}
+                onChange={() => setWantToSell(!wantToSell)}
+              />
+            </Form>
           </div>
           <button type="submit" className="btn btn-primary">
             REGISTER
